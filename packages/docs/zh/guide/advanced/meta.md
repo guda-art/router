@@ -44,6 +44,7 @@ const routes = [
 router.beforeEach((to, from) => {
   // 而不是去检查每条路由记录
   // to.matched.some(record => record.meta.requiresAuth)
+  // 这并不是一种完全等效的替换(例如matched数组中有一条之前的路由记录需要权限并且此时登录状态失效, 那么即使需要前往的路由不需要权限你也会返回登录页面, 而使用 `$route.meta` 方法则会成功解析)
   if (to.meta.requiresAuth && !auth.isLoggedIn()) {
     // 此路由需要授权，请检查是否已登录
     // 如果没有，则重定向到登录页面
